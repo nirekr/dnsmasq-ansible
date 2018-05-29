@@ -1,5 +1,5 @@
-- hosts: master
-  connection: local
+- hosts: local
+  connection: localhost
   become: yes
   tasks:
     - include: tasks/dnsmasq.yml
