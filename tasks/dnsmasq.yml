@@ -1,22 +1,22 @@
-- name: Install dnsmasq
-  apt: 
+# roles/dnsmasq/tasks/main.yml
+---
+- name: Install Dnsmasq
+  package:
     name: dnsmasq
     state: present
+  tags: dnsmasq
 
-- name: Stop dnsmasq
-  service:
-    name: dnsmasq
-    state: stopped
-
-- copy: 
-    src: configs/dnsmasq.conf
+- name: Set configuration file
+  template:
+    src: dnsmasq_conf.j2
     dest: /etc/dnsmasq.conf
-    owner: root
-    group: root
-    mode: 0644
-    backup: yes
+    validate: 'dnsmasq --test --conf-file=%s'
+  notify: restart dnsmasq
+  tags: dnsmasq
 
-- name: Start dnsmasq
+- name: Make sure Dnsmasq is running
   service:
     name: dnsmasq
     state: started
+    enabled: yes
+  tags: dnsmasq
