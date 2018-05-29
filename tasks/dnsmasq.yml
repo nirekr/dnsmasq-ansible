@@ -7,10 +7,6 @@
   tags: dnsmasq
 
 - name: Set configuration file
-  dnsmasq_domain_needed: false
-  dnsmasq_bogus_priv: true
-  dnsmasq_authoritative: false
-  dnsmasq_expand_hosts: false
   template:
     src: dnsmasq_conf.j2
     dest: /etc/dnsmasq.conf
